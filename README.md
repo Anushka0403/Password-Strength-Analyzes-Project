@@ -64,5 +64,5 @@ Then, open: `http://127.0.0.1:5000/`
 1. **Enter a password** to analyze its strength.
 2. **Review feedback** and view estimated crack times.
 3. **Get strong password suggestions** for weak inputs.
-4. **Provide custom inputs** (e.g., "anushka 0410 cat") to generate a tailored wordlist.
+4. **Provide custom inputs** (e.g., "grace 0410 cat") to generate a tailored wordlist.
 5. **Download the generated wordlist** for testing or research.
