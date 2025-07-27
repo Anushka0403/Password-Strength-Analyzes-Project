@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Password Strength Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <nav>
+    <a href="/"> Home</a> |
+    <a href="/about"> About</a> 
+  </nav>
+
+  <h1> Password Strength Analyzer</h1>
+  <form method="POST">
+    <label for="password">Enter Password:</label>
+    <input type="text" name="password" id="password" required>
+
+    <label for="inputs">Custom Inputs (space-separated):</label>
+    <textarea name="inputs" id="inputs" rows="3" placeholder="e.g., name birthday petname"></textarea>
+
+    <button type="submit">Analyze & Generate Wordlist</button>
+  </form>
+
+  {% if result %}
+    <div class="result-box">
+      <h3> Password Analysis</h3>
+      <p><strong>Score:</strong> {{ result.score }}/4</p>
+      <p><strong>Feedback:</strong>
+        {% if result.feedback.suggestions %}
+          {{ result.feedback.suggestions | join(', ') }}
+        {% else %}
+          No suggestions — strong password!
+        {% endif %}
+      </p>
+      <p><strong>Estimated Crack Times:</strong></p>
+      <ul>
+        {% for method, time in result.crack_times.items() %}
+          <li><strong>{{ method }}</strong>: {{ time }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+ {% if result.suggestion %}
+  <div class="suggestion-box">
+    <strong>Suggested Strong Password:</strong> 
+    <span class="suggestion-password">{{ result.suggestion }}</span>
+  </div>
+{% endif %}
+
+
+  {% if wordlist_path %}
+    <div class="download-link">
+      <a href="/{{ wordlist_path }}" download> Download Generated Wordlist</a>
+    </div>
+  {% endif %}
+
+</body>
+</html>
